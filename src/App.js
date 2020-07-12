@@ -15,7 +15,7 @@ function App() {
           className={ !isShown ? "App-logo" : "App-logo-reversed" }
           alt="logo"
         />
-          <h1 class="Main-text">Welcome to the hell marine!</h1>
+          <h1 class="Main-text">Welcome to the hell, marine!</h1>
         <button class="Button">I'm too young to die!</button>
       </header>
     </div>
