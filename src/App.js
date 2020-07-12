@@ -6,7 +6,7 @@ function App() {
   const [isShown, setIsShown] = useState(false);
 
   return (
-    <div className="App">
+    <div className="App Background-logo">
       <header className="App-header">
         <img
           src={logo}
@@ -15,17 +15,8 @@ function App() {
           className={ !isShown ? "App-logo" : "App-logo-reversed" }
           alt="logo"
         />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+          <h1 class="Main-text">Welcome to the hell, marine!</h1>
+        <button class="Button">I'm too young to die!</button>
       </header>
     </div>
   );
