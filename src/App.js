@@ -16,7 +16,7 @@ function App() {
           alt="logo"
         />
           <h1 class="Main-text">Welcome to the hell marine!</h1>
-        <button class="Button Button-start">I'm too young to die!</button>
+        <button class="Button">I'm too young to die!</button>
       </header>
     </div>
   );
