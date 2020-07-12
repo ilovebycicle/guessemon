@@ -15,10 +15,8 @@ function App() {
           className={ !isShown ? "App-logo" : "App-logo-reversed" }
           alt="logo"
         />
-        <p style={{textAlign: "center"}}>
-          <h1>Welcome to the hell marine!</h1>
-        </p>
-        <button class="button button3">I'm too young to die!</button>
+          <h1 class="Main-text">Welcome to the hell marine!</h1>
+        <button class="Button Button-start">I'm too young to die!</button>
       </header>
     </div>
   );
