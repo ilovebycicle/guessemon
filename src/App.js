@@ -1,24 +1,14 @@
-import React, { useState } from 'react';
-import logo from './logo.png';
+import React from 'react';
 import './App.css';
+import StartMenu from './StartMenu.js';
 
 function App() {
-  const [isShown, setIsShown] = useState(false);
-
+  const buttonNotPressed = true;
+  const numberOfQuestions = 5;
+  const numberOfVariants = 3;
+  const Quiz = <p> Not ready yet! </p>
   return (
-    <div className="App Background-logo">
-      <header className="App-header">
-        <img
-          src={logo}
-          onMouseEnter={() => setIsShown(true)}
-          onMouseLeave={() => setIsShown(false)}
-          className={ !isShown ? "App-logo" : "App-logo-reversed" }
-          alt="logo"
-        />
-          <h1 class="Main-text">Welcome to the hell, marine!</h1>
-        <button class="Button">I'm too young to die!</button>
-      </header>
-    </div>
+    <div className="App Background-logo">{ buttonNotPressed ? <StartMenu></StartMenu> : <Quiz /> } </div> // <StartMenu></StartMenu> = <StartMenu />
   );
 }
 
