@@ -1,21 +1,20 @@
 import React, { useState } from 'react';
 import logo from './logo.png';
-// import './App.css';
 
-function StartMenu() {
-  const [CacoSpin, SetCacoSpin] = useState(false);
-
+function StartMenu(props) {
+  const [cacoSpin, setCacoSpin] = useState(false);
+  const [count, setCount] = useState(0);
   return (
       <header className="App-header">
         <img
           src={logo}
-          onMouseEnter={() => SetCacoSpin(true)}
-          onMouseLeave={() => SetCacoSpin(false)}
-          className={ !CacoSpin ? "App-logo" : "App-logo-reversed" }
+          onMouseEnter={() => setCacoSpin(true)}
+          onMouseLeave={() => setCacoSpin(false)}
+          className={ cacoSpin ? "App-logo-reversed" : "App-logo" }
           alt="logo"
         />
-          <h1 class="Main-text">Welcome to the hell, marine!</h1>
-        <button class="Button Button-start">I'm too young to die!</button>
+          <h1 className="Main-text">Welcome to the hell, marine!</h1>
+  <button className="Button Button-start" onClick={() => { setCount(count + 1); props.setButtonStartQuiz(true)}}>I'm too young to die! {props.buttonNumber} {count}</button>
       </header>
   );
 }
