@@ -3,7 +3,6 @@ import logo from './logo.png';
 
 function StartMenu(props) {
   const [cacoSpin, setCacoSpin] = useState(false);
-  const [count, setCount] = useState(0);
   return (
       <header className="App-header">
         <img
@@ -14,7 +13,7 @@ function StartMenu(props) {
           alt="logo"
         />
           <h1 className="Main-text">Welcome to the hell, marine!</h1>
-  <button className="Button Button-start" onClick={() => { setCount(count + 1); props.setButtonStartQuiz(true)}}>I'm too young to die! {props.buttonNumber} {count}</button>
+  <button className="Button Button-start" onClick={() => {props.setButtonStartQuiz(true)}}>I'm too young to die!</button>
       </header>
   );
 }
