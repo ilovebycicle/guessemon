@@ -7,6 +7,7 @@ import dssgtatk from './data/snd/dssgtatk.wav';
 import dsbossit from './data/snd/dsbossit.wav';
 
 function Quiz() {
+  const [count, setCount] = useState(0);
   const [isDisabledButtons, setIsDisabledButtons] = useState(false);
   const soundUrl1 = dsbrsdth;
 
@@ -19,7 +20,7 @@ function Quiz() {
 
   const [play2] = useSound(
     soundUrl2,
-    { volume: 0.25, interrupt: true, onend: () => setIsDisabledButtons(false)}
+    { volume: 0.25, playbackRate: 0.9, interrupt: true, onend: () => setIsDisabledButtons(false)}
   );
 
   const soundUrl3 = dsbossit;
@@ -42,12 +43,23 @@ function Quiz() {
         </img>
       </div>
         <div className ="Button-panel">
-          <button className='Button-sound' onClick={() => buttonHandling(play1)} disabled={isDisabledButtons}>Sound 1</button>
-          <button className='Button-sound' onClick={() => buttonHandling(play2)} disabled={isDisabledButtons}>Sound 2</button>
-          <button className='Button-sound' onClick={() => buttonHandling(play3)} disabled={isDisabledButtons}>Sound 3</button>
+          <button className='Button-sound' onClick={() => buttonHandling(play1)>setCount(0)} disabled={isDisabledButtons}>Sound №1 {count}</button>
+          <button className='Button-sound' onClick={() => buttonHandling(play2)>setCount(1)} disabled={isDisabledButtons}>Sound №2 {count}</button>
+          <button className='Button-sound' onClick={() => buttonHandling(play3)>setCount(2)} disabled={isDisabledButtons}>Sound №3 {count}</button>
       </div>
       <div className ="Button-panel">
-          <button className='Button-sound'>Continue</button>
+          <button className='Button-sound' onClick={() =>{
+            if (count == 0) {
+              alert(123);
+            }
+            else if (count == 1) {
+              alert(234);
+            }
+            else if (count == 2) {
+              alert(345);
+            }
+          }
+          }>Continue</button>
         </div>
     </div>
   )
