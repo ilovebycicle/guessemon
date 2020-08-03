@@ -52,10 +52,10 @@ const mockQuestions = [
 
 function App() {
   const [buttonStartQuiz, setButtonStartQuiz] = useState(false);
-  const [questionCount, setQuestionCount] = useState(1);
+  const [questionCount, setQuestionCount] = useState(0);
   
   const nextQuestionHandling = () => {
-
+    setQuestionCount(questionCount + 1);
   }
 
 
@@ -63,7 +63,7 @@ function App() {
     <div className="App Background-logo">
       { !buttonStartQuiz 
         ? <StartMenu setButtonStartQuiz={setButtonStartQuiz}></StartMenu>
-        : <Quiz image={mockQuestions[0].image} sounds={mockQuestions[0].sounds} toggleNext={nextQuestionHandling} />
+        : <Quiz image={mockQuestions[questionCount].image} sounds={mockQuestions[questionCount].sounds} toggleNext={nextQuestionHandling} />
       }
       <Somes />
     </div> // <StartMenu></StartMenu> = <StartMenu />
