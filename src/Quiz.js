@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import './App.css';
 import Demon_sprite from './data/spr/Demon_sprite.png'
+import Imp_sprite from './data/spr/Imp_sprite.png'
 import useSound from 'use-sound';
 import dsbrsdth from './data/snd/dsbrsdth.wav';
 import dssgtatk from './data/snd/dssgtatk.wav';
 import dsbossit from './data/snd/dsbossit.wav';
 
-function Quiz() {
+function Quiz(props) {
   const [selectedButton, setSelectedButton] = useState(0);
   const [isAnswered, setIsAnswered] = useState(false);
   const [isDisabledButtons, setIsDisabledButtons] = useState(false);
+  const [hurlAcceleration, setHurlAcceleration] = useState(0);
 
   const soundUrl1 = dsbrsdth;
   const correctAnswer = 2;
@@ -23,7 +25,7 @@ function Quiz() {
 
   const [play2] = useSound(
     soundUrl2,
-    { volume: 0.25, playbackRate: 0.9, interrupt: true, onend: () => setIsDisabledButtons(false) }
+    { volume: 0.25, playbackRate: 0.8 + hurlAcceleration, interrupt: true, onend: () => setIsDisabledButtons(false) }
   );
 
   const soundUrl3 = dsbossit;
@@ -49,6 +51,22 @@ function Quiz() {
     )
   }
 
+  // const imageHandling = (questionCount) => {
+  //   if (questionCount == 1)
+  //     <div className='Sprite-box'> 
+  //       <img
+  //         src={Demon_sprite} style={{ backgroundSize: 'cover', height: '100%' }}>
+  //       </img>
+  //     </div>
+  //   if (questionCount == 2)
+  //   <div className='Sprite-box'> 
+  //     <img
+  //       src={props.image} style={{ backgroundSize: 'cover', height: '100%' }}>
+  //     </img>
+  //   </div>
+
+  // }
+
   const buttonHandling = (soundToPlay, number) => {
     setSelectedButton(number);
     setIsDisabledButtons(true);
@@ -56,9 +74,10 @@ function Quiz() {
   }
 
   const continueHandling = () => {
-
     setIsAnswered(true);
-    setTimeout(setIsAnswered, 5000, false);
+    setTimeout(setIsAnswered, 3000, false);
+    setHurlAcceleration(0);
+    props.toggleNext();
   }
 
   return (
@@ -70,7 +89,7 @@ function Quiz() {
       </div>
       <div className="Button-panel">
         <button className={optionButtonClassName(1)} onClick={() => buttonHandling(play1, 1)} disabled={isAnswered || isDisabledButtons}>Sound №1</button>
-        <button className={optionButtonClassName(2)} onClick={() => buttonHandling(play2, 2)} disabled={isAnswered || isDisabledButtons}>Sound №2</button>
+        <button className={optionButtonClassName(2)} onClick={() => buttonHandling(play2, 2)>setHurlAcceleration(hurlAcceleration + 0.1)} disabled={isAnswered || isDisabledButtons}>Sound №2</button>
         <button className={optionButtonClassName(3)} onClick={() => buttonHandling(play3, 3)} disabled={isAnswered || isDisabledButtons}>Sound №3</button>
       </div>
       <div className="Button-panel">
@@ -81,13 +100,3 @@ function Quiz() {
 }
 
 export default Quiz;
-
-  //   if (setSelectedButton == 0) {
-  //     alert(123);
-  //   }
-  //   else if (setSelectedButton == 1) {
-  //     alert(234);
-  //   }
-  //   else if (setSelectedButton == 2) {
-  //     alert(345);
-  //   }
