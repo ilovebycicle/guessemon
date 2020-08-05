@@ -49,7 +49,6 @@ const mockQuestions = [
   { image: Lostsoul_sprite, sounds: [dssawful, dssklatk, dsvipain], correctSound: 2},
 ]
 
-
 function App() {
   const [buttonStartQuiz, setButtonStartQuiz] = useState(false);
   const [questionCount, setQuestionCount] = useState(0);
@@ -58,22 +57,29 @@ function App() {
     setQuestionCount(questionCount + 1);
   }
 
+// Чтобы в квизе менялись картинки и звуки создана константа mockQuestions которая содержит массив (картинку, 3 звука, правильный выбор / звук) и
+// снизу в jsx добавили свойства (props) для функ. компонента Quiz (image, sounds, toggleNext - который активирует функцию перехода нового вопроса).
+// Это работает следующим образом: в Quiz при нажатии на Continue активируется toggleNext, который в свою очередь активирует nextQestionHandling, 
+//  а уже он в свою очередь изменяет номер вопроса на +1 (и должен считать правильные ответы для странички результатов и вызывать её в конце).
+//  Собственно от изменения questionCount и переходит смена картинок и звуков и всё проходит по новому кругу.
 
   return (
     <div className="App Background-logo">
       { !buttonStartQuiz 
-        ? <StartMenu setButtonStartQuiz={setButtonStartQuiz}></StartMenu>
+        ? <StartMenu setButtonStartQuiz={setButtonStartQuiz} /> // <StartMenu></StartMenu> = <StartMenu />
         : <Quiz image={mockQuestions[questionCount].image} sounds={mockQuestions[questionCount].sounds} toggleNext={nextQuestionHandling} />
       }
-      <Somes />
-    </div> // <StartMenu></StartMenu> = <StartMenu />
+      <Alesha />
+    </div>
   );
 }
 
-function Somes() {
+// This function below is a test button for future
+
+function Alesha() {
   return (
   <div>
-  <button onClick={Test}>Don't touch blyat'!</button>
+  <button onClick={Test}>Ne trogai Aleshka!</button>
   </div>
   );
 }

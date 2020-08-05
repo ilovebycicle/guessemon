@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import logo from './logo.png';
 
-function StartMenu(props) {
+function StartMenu(props) 
+{
   const [cacoSpin, setCacoSpin] = useState(false);
   return (
       <header className="App-header">
@@ -13,7 +14,7 @@ function StartMenu(props) {
           alt="logo"
         />
           <h1 className="Main-text">Welcome to the hell, marine!</h1>
-  <button className="Button Button-start" onClick={() => {props.setButtonStartQuiz(true)}}>I'm too young to die!</button>
+            <button className="Button Button-start" onClick={() => {props.setButtonStartQuiz(true)}}>I'm too young to die!</button>
       </header>
   );
 }

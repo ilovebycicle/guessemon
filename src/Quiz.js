@@ -1,45 +1,34 @@
 import React, { useState } from 'react';
 import './App.css';
-import Demon_sprite from './data/spr/Demon_sprite.png'
-import Imp_sprite from './data/spr/Imp_sprite.png'
 import useSound from 'use-sound';
-import dssgtatk from './data/snd/dssgtatk.wav';
-// /static/media/dssgtatk.cd1a3ad1.wav
 
 function Quiz(props) {
-  // const props = {
-  //   image: "pathToPic",
-  //   sounds: [0, 1, 2]
-  // }
 
   const [selectedButton, setSelectedButton] = useState(0);
   const [isAnswered, setIsAnswered] = useState(false);
   const [isDisabledButtons, setIsDisabledButtons] = useState(false);
   const [hurlAcceleration, setHurlAcceleration] = useState(0);
 
-  const soundUrl1 = props.sounds[0];
-  const correctAnswer = 2;
+  const correctAnswer = 2; // Здесь хардкод правильного ответа
+
+// play1-2-3 объединить как-то
 
   const [play1] = useSound(
-    soundUrl1,
+    props.sounds[0],
     { volume: 0.25, interrupt: true, onend: () => setIsDisabledButtons(false) }
   );
 
-  const soundUrl2 = props.sounds[1];
-
   const [play2] = useSound(
-    soundUrl2,
+    props.sounds[1],
     {
       volume: 0.25,
-      playbackRate: (soundUrl2.includes('dssgtatk') ? 0.8 + hurlAcceleration : 1),
+      playbackRate: (props.sounds[1].includes('dssgtatk') ? 0.8 + hurlAcceleration : 1), // Здесь код пасхалки, если звук хухурл то он ускоряется
       interrupt: true, onend: () => setIsDisabledButtons(false)
     }
   );
 
-  const soundUrl3 = props.sounds[2];
-
   const [play3] = useSound(
-    soundUrl3,
+    props.sounds[2],
     { volume: 0.25, interrupt: true, onend: () => setIsDisabledButtons(false) }
   );
 
@@ -60,7 +49,7 @@ function Quiz(props) {
   }
 
   const buttonHandling = (soundToPlay, number) => {
-    soundToPlay == play2 && soundUrl2.includes('dssgtatk') && setHurlAcceleration(hurlAcceleration + 0.1);
+    soundToPlay == play2 && props.sounds[1].includes('dssgtatk') && setHurlAcceleration(hurlAcceleration + 0.1);
     setSelectedButton(number);
     setIsDisabledButtons(true);
     soundToPlay();
