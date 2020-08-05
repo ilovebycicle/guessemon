@@ -58,7 +58,6 @@ function App() {
     setQuestionCount(questionCount + 1);
   }
 
-
   return (
     <div className="App Background-logo">
       { !buttonStartQuiz 
