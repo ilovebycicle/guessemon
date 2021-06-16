@@ -51,44 +51,67 @@ const mockQuestions = [
 ]
 
 function App() {
-  const [buttonStartQuiz, setButtonStartQuiz] = useState(false);
+  // quizState - состояние викторины
+  // 0 - стартовое меню
+  // 1 - вопросы викторины
+  // 2 - вывод результатов
+  const [quizState, setQuizState] = useState(0);
   const [questionCount, setQuestionCount] = useState(0);
   
   const nextQuestionHandling = () => {
-    setQuestionCount(questionCount + 1);
+    if (questionCount + 1 < mockQuestions.length) {
+      setQuestionCount(questionCount + 1);
+    }
+    else
+      setQuizState(2);
   }
 
-// Чтобы в квизе менялись картинки и звуки создана константа mockQuestions которая содержит массив (картинку, 3 звука, правильный выбор / звук) и
-// снизу в jsx добавили свойства (props) для функ. компонента Quiz (image, sounds, toggleNext - который активирует функцию перехода нового вопроса).
-// Это работает следующим образом: в Quiz при нажатии на Continue активируется toggleNext, который в свою очередь активирует nextQestionHandling, 
-//  а уже он в свою очередь изменяет номер вопроса на +1 (и должен считать правильные ответы для странички результатов и вызывать её в конце).
-//  Собственно от изменения questionCount и переходит смена картинок и звуков и всё проходит по новому кругу.
+  // Чтобы в квизе менялись картинки и звуки создана константа mockQuestions которая содержит массив (картинку, 3 звука, правильный выбор / звук) и
+  // снизу в jsx добавили свойства (props) для функ. компонента Quiz (image, sounds, toggleNext - который активирует функцию перехода нового вопроса).
+  // Это работает следующим образом: в Quiz при нажатии на Continue активируется toggleNext, который в свою очередь активирует nextQestionHandling, 
+  //  а уже он в свою очередь изменяет номер вопроса на +1 (и должен считать правильные ответы для странички результатов и вызывать её в конце).
+  //  Собственно от изменения questionCount и переходит смена картинок и звуков и всё проходит по новому кругу.
 
-  return (
+  let currentStateComponent = null;
+
+  switch (quizState) {
+    case 0: // рисуем стартовое меню
+      currentStateComponent =
+        <StartMenu
+          setButtonStartQuiz={setQuizState}
+        />
+      break;
+    case 1: // рисуем вопросы викторины
+      currentStateComponent =
+          <Quiz
+            image={mockQuestions[questionCount].image}
+            sounds={mockQuestions[questionCount].sounds}
+            correctSound={mockQuestions[questionCount].correctSound}
+            toggleNext={nextQuestionHandling}
+          />
+      break;
+    case 2: // рисуем результаты
+      currentStateComponent = <Results />
+      break;
+    default:
+      currentStateComponent = null;
+    }
+  
+  return(
     <div className="App Background-logo">
-      { !buttonStartQuiz ?
-          <StartMenu setButtonStartQuiz={setButtonStartQuiz} /> : // <StartMenu></StartMenu> = <StartMenu />
-          (questionCount >= mockQuestions.length) ?
-            <Results /> :
-            <Quiz
-                image={mockQuestions[questionCount].image}
-                sounds={mockQuestions[questionCount].sounds}
-                correctSound={mockQuestions[questionCount].correctSound}
-                toggleNext={nextQuestionHandling}
-              />
-      }
+      {currentStateComponent}
       <Alesha />
     </div>
-  );
+  )
 }
 
 // This function below is a test button for future
 
 function Alesha() {
   return (
-  <div>
-  <button onClick={Test}>Ne trogai Aleshka!</button>
-  </div>
+    <div>
+      <button onClick={Test}>Ne trogai Aleshka!</button>
+    </div>
   );
 }
 
