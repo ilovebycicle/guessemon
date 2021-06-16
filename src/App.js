@@ -3,6 +3,7 @@ import './App.css';
 import StartMenu from './StartMenu.js';
 import Quiz from './Quiz.js';
 import Test from './Test.js';
+import Results from './Results.js';
 
 import Demon_sprite from './data/spr/Demon_sprite.png';
 
@@ -65,9 +66,16 @@ function App() {
 
   return (
     <div className="App Background-logo">
-      { !buttonStartQuiz 
-        ? <StartMenu setButtonStartQuiz={setButtonStartQuiz} /> // <StartMenu></StartMenu> = <StartMenu />
-        : <Quiz image={mockQuestions[questionCount].image} sounds={mockQuestions[questionCount].sounds} toggleNext={nextQuestionHandling} />
+      { !buttonStartQuiz ?
+          <StartMenu setButtonStartQuiz={setButtonStartQuiz} /> : // <StartMenu></StartMenu> = <StartMenu />
+          (questionCount >= mockQuestions.length) ?
+            <Results /> :
+            <Quiz
+                image={mockQuestions[questionCount].image}
+                sounds={mockQuestions[questionCount].sounds}
+                correctSound={mockQuestions[questionCount].correctSound}
+                toggleNext={nextQuestionHandling}
+              />
       }
       <Alesha />
     </div>
