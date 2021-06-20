@@ -9,7 +9,7 @@ function Quiz(props) {
   const [isDisabledButtons, setIsDisabledButtons] = useState(false);
   const [hurlAcceleration, setHurlAcceleration] = useState(0);
 
-  const [ correctAnswer, sounds ] = props; // const correctAnswer = props.correctAnswer; sounds = props.sounds;
+  const { correctAnswer, sounds } = props; // const correctAnswer = props.correctAnswer; sounds = props.sounds;
   const generalVolume = 0.25;
   const delayBetweenQuestionsMs = 1500;
 
@@ -61,9 +61,23 @@ function Quiz(props) {
     )
   }
 
-  const buttonHandling = (soundToPlay, number) => {
+  const buttonHandling = (number) => {
+    let soundToPlay = null;
+    switch (number) {
+      case 1:
+        soundToPlay = play1;
+        break;
+      case 2:
+        soundToPlay = play2;
+        break;
+      case 3:
+        soundToPlay = play3;
+        break;
+    }
+    // пасхалка для хухурл acceleration
     soundToPlay === play2 && sounds[1].includes('dssgtatk') &&
       setHurlAcceleration(hurlAcceleration + 0.1);
+
     setSelectedButton(number);
     setIsDisabledButtons(true);
     soundToPlay();
@@ -92,21 +106,21 @@ function Quiz(props) {
       <div className="Button-panel">
         <button
           className={optionButtonClassName(1)}
-          onClick={() => buttonHandling(play1, 1)}
+          onClick={() => buttonHandling(1)}
           disabled={isAnswered || isDisabledButtons}
         >
           Sound №1
         </button>
         <button
           className={optionButtonClassName(2)}
-          onClick={() => buttonHandling(play2, 2)}
+          onClick={() => buttonHandling(2)}
           disabled={isAnswered || isDisabledButtons}
         >
           Sound №2
         </button>
         <button
           className={optionButtonClassName(3)}
-          onClick={() => buttonHandling(play3, 3)}
+          onClick={() => buttonHandling(3)}
           disabled={isAnswered || isDisabledButtons}
         >
           Sound №3
