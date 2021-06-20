@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import logo from './logo.png';
 
-function Results() 
+function Results(props) 
 {
   const [cacoSpin, setCacoSpin] = useState(false);
   return (
@@ -13,7 +13,13 @@ function Results()
           className={ !cacoSpin ? "App-logo-reversed" : "App-logo" }
           alt="logo"
         />
-          <h1 className="Main-text">Results</h1>
+          <h1 className="Main-text">Правильных ответов: {props.score}</h1>
+          <button
+            className="Button Button-start"
+            onClick={() => props.resetQuiz()}
+          >
+            Вернуться в прошлое?
+          </button>
       </header>
   );
 }

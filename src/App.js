@@ -57,6 +57,11 @@ function App() {
   // 2 - вывод результатов
   const [quizState, setQuizState] = useState(0);
   const [questionCount, setQuestionCount] = useState(0);
+  const [score, setScore] = useState(0)
+  
+  const scoreHandling = () => {
+    setScore(score + 1);
+  }
   
   const nextQuestionHandling = () => {
     if (questionCount + 1 < mockQuestions.length) {
@@ -66,11 +71,17 @@ function App() {
       setQuizState(2);
   }
 
+  const resetQuiz = () => {
+    setQuizState(0);
+    setQuestionCount(0);
+    setScore(0);
+  }
+
   // Чтобы в квизе менялись картинки и звуки создана константа mockQuestions которая содержит массив (картинку, 3 звука, правильный выбор / звук) и
   // снизу в jsx добавили свойства (props) для функ. компонента Quiz (image, sounds, toggleNext - который активирует функцию перехода нового вопроса).
   // Это работает следующим образом: в Quiz при нажатии на Continue активируется toggleNext, который в свою очередь активирует nextQestionHandling, 
-  //  а уже он в свою очередь изменяет номер вопроса на +1 (и должен считать правильные ответы для странички результатов и вызывать её в конце).
-  //  Собственно от изменения questionCount и переходит смена картинок и звуков и всё проходит по новому кругу.
+  // а уже он в свою очередь изменяет номер вопроса на +1 (и должен считать правильные ответы для странички результатов и вызывать её в конце).
+  // Собственно от изменения questionCount и переходит смена картинок и звуков и всё проходит по новому кругу.
 
   let currentStateComponent = null;
 
@@ -86,12 +97,17 @@ function App() {
           <Quiz
             image={mockQuestions[questionCount].image}
             sounds={mockQuestions[questionCount].sounds}
-            correctSound={mockQuestions[questionCount].correctSound}
-            toggleNext={nextQuestionHandling}
+            correctAnswer={mockQuestions[questionCount].correctSound}
+            nextQuestion={nextQuestionHandling}
+            toggleScore={scoreHandling}
           />
       break;
     case 2: // рисуем результаты
-      currentStateComponent = <Results />
+      currentStateComponent = 
+      <Results
+        score={score}
+        resetQuiz={resetQuiz}
+      />
       break;
     default:
       currentStateComponent = null;

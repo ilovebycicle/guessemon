@@ -9,29 +9,38 @@ function Quiz(props) {
   const [isDisabledButtons, setIsDisabledButtons] = useState(false);
   const [hurlAcceleration, setHurlAcceleration] = useState(0);
 
-  const correctAnswer = props.correctSound; // Здесь хардкод правильного ответа
-  const generalVolume = 0.45;
+  const [ correctAnswer, sounds ] = props; // const correctAnswer = props.correctAnswer; sounds = props.sounds;
+  const generalVolume = 0.25;
   const delayBetweenQuestionsMs = 1500;
 
   // play1-2-3 объединить как-то
 
   const [play1] = useSound(
-    props.sounds[0],
-    { volume: generalVolume, interrupt: true, onend: () => setIsDisabledButtons(false) }
+    sounds[0],
+    {
+      volume: generalVolume,
+      interrupt: true,
+      onend: () => setIsDisabledButtons(false)
+    }
   );
 
   const [play2] = useSound(
-    props.sounds[1],
+    sounds[1],
     {
       volume: generalVolume,
-      playbackRate: (props.sounds[1].includes('dssgtatk') ? 0.8 + hurlAcceleration : 1), // Здесь код пасхалки, если звук хухурл то он ускоряется
-      interrupt: true, onend: () => setIsDisabledButtons(false)
+      playbackRate: (sounds[1].includes('dssgtatk') ? 0.8 + hurlAcceleration : 1), // Здесь код пасхалки, если звук хухурл то он ускоряется
+      interrupt: true,
+      onend: () => setIsDisabledButtons(false)
     }
   );
 
   const [play3] = useSound(
-    props.sounds[2],
-    { volume: generalVolume, interrupt: true, onend: () => setIsDisabledButtons(false) }
+    sounds[2],
+    {
+      volume: generalVolume,
+      interrupt: true,
+      onend: () => setIsDisabledButtons(false)
+    }
   );
 
   const optionButtonClassName = (optionButtonNumber) => {
@@ -53,7 +62,7 @@ function Quiz(props) {
   }
 
   const buttonHandling = (soundToPlay, number) => {
-    soundToPlay === play2 && props.sounds[1].includes('dssgtatk') &&
+    soundToPlay === play2 && sounds[1].includes('dssgtatk') &&
       setHurlAcceleration(hurlAcceleration + 0.1);
     setSelectedButton(number);
     setIsDisabledButtons(true);
@@ -61,10 +70,13 @@ function Quiz(props) {
   }
 
   const continueHandling = () => {
+    if (correctAnswer === selectedButton) {
+      props.toggleScore();
+    } 
     setIsAnswered(true);
     setTimeout(() => {
       setIsAnswered(false);
-      props.toggleNext();
+      props.nextQuestion();
       setSelectedButton(0);
     }, delayBetweenQuestionsMs);
     setHurlAcceleration(0);
