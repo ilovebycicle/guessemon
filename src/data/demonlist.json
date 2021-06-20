@@ -1,0 +1,35 @@
+[
+	{
+		"name": "Baron of Hell",
+		"calmSprite": "/spr/Baronofhell_sprite.png",
+		"sounds": ["/snd/dsbrssit.wav","/snd/dsbrsdth.wav"]
+	}, {
+		"name": "Cacodemon",
+		"calmSprite": "/spr/Cacodemon_sprite.png",
+		"sounds": ["/snd/dsdmact.wav","/snd/dscacdth.wav","/snd/dsfirsht.wav"]
+	}, {
+		"name": "Cyberdemon",
+		"calmSprite": "/spr/Cyberdemon_sprite.png",
+		"sounds": ["/snd/dscybdth.wav","/snd/dscybsit.wav"]
+	}, {
+		"name": "Demon",
+		"calmSprite": "/spr/Demon_sprite.png",
+		"sounds": ["/snd/dssgtdth.wav","snd/dssgtsit.wav"]
+	}, {
+		"name": "Imp",
+		"calmSprite": "/spr/Imp_sprite.png",
+		"sounds": ["/snd/dsbgact.wav","/snd/dspopain.wav"]
+	}, {
+		"name": "Lost soul",
+		"calmSprite": "/spr/Lostsoul_sprite.png",
+		"sounds": ["/snd/dssklatk.wav"]
+	}, {
+		"name": ["Shotgun Guy", "Zombieman"],
+		"calmSprite": ["/spr/Formersergeant_sprite.png", "/spr/Formerhuman_sprite.png"],
+		"sounds": ["/snd/dsposit2.wav","/snd/dsposact.wav","/snd/dspodth1.wav"]
+	}, {
+		"name": "Spider Mastermind",
+		"calmSprite": "/spr/Spidermastermind_sprite.png",
+		"sounds": ["/snd/dsspisit.wav","/snd/dsspidth.wav"]
+	}
+]
