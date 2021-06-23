@@ -14,7 +14,13 @@ function StartMenu(props)
           alt="logo"
         />
           <h1 className="Main-text">Welcome to the hell, marine!</h1>
-            <button className="Button Button-start" onClick={() => {props.setButtonStartQuiz(1)}}>I'm too young to die!</button>
+            <button className="Button Button-start"
+              onClick={() => {props.setButtonStartQuiz(1)}}>
+                I'm too young to die!</button>
+            <button className="Button Button-start" 
+              onClick={() => 
+                {props.setButtonStartQuiz(1); props.setHardDifficulty(1)}}>
+                  Hurt me plenty</button>
       </header>
   );
 }

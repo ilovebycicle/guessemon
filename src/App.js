@@ -5,6 +5,8 @@ import Quiz from './Quiz.js';
 import Test from './Test.js';
 import Results from './Results.js';
 
+import demonlist from './data/demonlist.json'
+
 import Demon_sprite from './data/spr/Demon_sprite.png';
 
 import dsbrsdth from './data/snd/dsbrsdth.wav';
@@ -57,7 +59,11 @@ function App() {
   // 2 - вывод результатов
   const [quizState, setQuizState] = useState(0);
   const [questionCount, setQuestionCount] = useState(0);
-  const [score, setScore] = useState(0)
+  const [score, setScore] = useState(0);
+
+  const [hardDifficulty, setHardDifficulty] = useState(0); 
+  // Использовние этого стейта необходимо
+  // только если будет больше выборов сложностей
   
   const scoreHandling = () => {
     setScore(score + 1);
@@ -90,6 +96,7 @@ function App() {
       currentStateComponent =
         <StartMenu
           setButtonStartQuiz={setQuizState}
+          setHardDifficulty={setHardDifficulty}
         />
       break;
     case 1: // рисуем вопросы викторины
@@ -100,6 +107,7 @@ function App() {
             correctAnswer={mockQuestions[questionCount].correctSound}
             nextQuestion={nextQuestionHandling}
             toggleScore={scoreHandling}
+            // {...console.log(hardDifficulty)} //трэк стэйта
           />
       break;
     case 2: // рисуем результаты
@@ -112,7 +120,6 @@ function App() {
     default:
       currentStateComponent = null;
     }
-  
   return(
     <div className="App Background-logo">
       {currentStateComponent}
@@ -120,6 +127,30 @@ function App() {
     </div>
   )
 }
+
+function arrayRandElement(arr) {
+  let fiveRandDemons = [];
+
+    for ( let i = 0; i < 5; i++) {
+      let randIndex = Math.floor(Math.random() * arr.length);
+
+      if (!fiveRandDemons.includes(arr[randIndex])) {
+        fiveRandDemons.push(arr[randIndex]);
+      } else {
+        i--
+      }
+    }
+
+    
+
+  return fiveRandDemons;
+}
+
+let demonNames = demonlist.map(item => item.name);
+
+let randomDemonNames = arrayRandElement(demonNames)
+
+console.log(randomDemonNames);
 
 // This function below is a test button for future
 
