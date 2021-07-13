@@ -14,7 +14,7 @@
 	}, {
 		"name": "Demon",
 		"calmSprite": "/spr/Demon_sprite.png",
-		"sounds": ["/snd/dssgtdth.wav","snd/dssgtsit.wav"]
+		"sounds": ["/snd/dssgtdth.wav","/snd/dssgtsit.wav"]
 	}, {
 		"name": "Imp",
 		"calmSprite": "/spr/Imp_sprite.png",
