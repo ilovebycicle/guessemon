@@ -7,52 +7,16 @@ import Results from './Results.js';
 
 import demonlist from './data/demonlist.json'
 
-import Demon_sprite from './data/spr/Demon_sprite.png';
-
-import dsbrsdth from './data/snd/dsbrsdth.wav';
-import dssgtatk from './data/snd/dssgtatk.wav';
-import dsbossit from './data/snd/dsbossit.wav';
-
-
-import Imp_sprite from './data/spr/Imp_sprite.png';
-
-import dsbgact from './data/snd/dsbgact.wav';
-import dstelept from './data/snd/dstelept.wav';
-import dsdmpain from './data/snd/dsdmpain.wav';
-
-
-import Cacodemon_sprite from './data/spr/Cacodemon_sprite.png';
-
-import dsfirxpl from './data/snd/dsfirxpl.wav';
-import dsskeact from './data/snd/dsskeact.wav';
-import dscacsit from './data/snd/dscacsit.wav';
-
-
-import Cyberdemon_sprite from './data/spr/Cyberdemon_sprite.png';
-
-import dscybsit from './data/snd/dscybsit.wav';
-import dspodth1 from './data/snd/dspodth1.wav';
-import dspstop from './data/snd/dspstop.wav';
-
-
-import Lostsoul_sprite from './data/spr/Lostsoul_sprite.png';
-
-import dssawful from './data/snd/dssawful.wav';
-import dssklatk from './data/snd/dssklatk.wav';
-import dsvipain from './data/snd/dsvipain.wav';
-
-const numberOfQuestions = 5;
 const numberOfVariants = 3;
+const filesPrefix = "./data";
 
 const mockQuestions = [
-  { image: Demon_sprite, sounds: [dsbrsdth, dssgtatk, dsbossit], correctSoundIndex: 2},
-  { image: Imp_sprite, sounds: [dsbgact, dstelept, dsdmpain], correctSoundIndex: 1},
-  { image: Cacodemon_sprite, sounds: [dsfirxpl, dsskeact,dscacsit], correctSoundIndex: 3},
-  { image: Cyberdemon_sprite, sounds: [dscybsit, dspodth1, dspstop], correctSoundIndex: 1},
-  { image: Lostsoul_sprite, sounds: [dssawful, dssklatk, dsvipain], correctSoundIndex: 2},
+  { image: './data/spr/Demon_sprite.png', sounds: ['./data/snd/dsbrsdth.wav', './data/snd/dssgtatk.wav', './data/snd/dsbossit.wav'], correctSoundIndex: 2},
+  { image: './data/spr/Imp_sprite.png', sounds: ['./data/snd/dsbgact.wav', './data/snd/dstelept.wav', './data/snd/dsdmpain.wav'], correctSoundIndex: 1},
+  { image: './data/spr/Cacodemon_sprite.png', sounds: ['./data/snd/dsfirxpl.wav', './data/snd/dsskeact.wav','./data/snd/dscacsit.wav'], correctSoundIndex: 3},
+  { image: './data/spr/Cyberdemon_sprite.png', sounds: ['./data/snd/dscybsit.wav', './data/snd/dspodth1.wav', './data/snd/dspstop.wav'], correctSoundIndex: 1},
+  { image: './data/spr/Lostsoul_sprite.png', sounds: ['./data/snd/dssawful.wav', './data/snd/dssklatk.wav', './data/snd/dsvipain.wav'], correctSoundIndex: 2},
 ]
-
-// const randomQuestions = generateQuestions(randomDemonNames);
 
 function App() {
   // quizState - состояние викторины
@@ -62,17 +26,42 @@ function App() {
   const [quizState, setQuizState] = useState(0);
   const [questionCount, setQuestionCount] = useState(0);
   const [score, setScore] = useState(0);
+  const [questionList, setQuestionList] = useState([]);
 
-  const [hardDifficulty, setHardDifficulty] = useState(0); 
+  // const [difficulty, setDifficulty] = useState(0); 
   // Использовние этого стейта необходимо
   // только если будет больше выборов сложностей
+
+  const setQuestionListBasedOnDifficulty = (difficulty) => {
+    const FullListOfDemonNames = demonlist.map(item => item.name);
+    let randomDemonNames = [];
+
+    switch (difficulty) {
+      case 0:
+        setQuestionList(mockQuestions)
+        break;
+      case 1:
+        randomDemonNames = arrayRandElement(FullListOfDemonNames, 5);
+        setQuestionList(generateQuestions(randomDemonNames));
+        break;
+      case 2:
+        randomDemonNames = arrayRandElement(FullListOfDemonNames, 6);
+        setQuestionList(generateQuestions(randomDemonNames));
+        break;
+      case 3:
+        randomDemonNames = arrayRandElement(FullListOfDemonNames, 8);
+        setQuestionList(generateQuestions(randomDemonNames));
+        break;
+    }
+    setQuizState(1);
+  }
   
   const scoreHandling = () => {
     setScore(score + 1);
   }
   
   const nextQuestionHandling = () => {
-    if (questionCount + 1 < mockQuestions.length) {
+    if (questionCount + 1 < questionList.length) {
       setQuestionCount(questionCount + 1);
     }
     else
@@ -97,16 +86,17 @@ function App() {
     case 0: // рисуем стартовое меню
       currentStateComponent =
         <StartMenu
-          setButtonStartQuiz={setQuizState}
-          setHardDifficulty={setHardDifficulty}
+          // setButtonStartQuiz={setQuizState}
+          // setDifficulty={setDifficulty}
+          setQuestionListBasedOnDifficulty={setQuestionListBasedOnDifficulty}
         />
       break;
     case 1: // рисуем вопросы викторины
       currentStateComponent =
           <Quiz
-            image={mockQuestions[questionCount].image}
-            sounds={mockQuestions[questionCount].sounds}
-            correctAnswer={mockQuestions[questionCount].correctSoundIndex}
+            image={questionList[questionCount].image}
+            sounds={questionList[questionCount].sounds}
+            correctAnswer={questionList[questionCount].correctSoundIndex}
             nextQuestion={nextQuestionHandling}
             toggleScore={scoreHandling}
             // {...console.log(hardDifficulty)} //трэк стэйта
@@ -130,10 +120,10 @@ function App() {
   )
 }
 
-function arrayRandElement(arr) {
+function arrayRandElement(arr,numberOfElements) {
   let fiveRandDemons = [];
 
-  for ( let i = 0; i < 5; i++) {
+  for ( let i = 0; i < numberOfElements; i++) {
 
     let randIndex = Math.floor(Math.random() * arr.length);
 
@@ -158,17 +148,19 @@ function generateQuestions (demonNames) {
 
   // Снизу в цикле for берётся каждый демон из уже зарандомленных, ищется его объект в json, и берём его картинку
   for (let demonName of demonNames) {
-    let demonData = demonlist.find(item => item.name == demonName);
+    let demonData = demonlist.find(item => item.name === demonName);
     let image = demonData.calmSprite;
-    // if (typeof(image) == Array) Если массив с зомби и сержантом, то выбрать одного случайного
+    if (Array.isArray(image)) {
+      image = image[Math.floor(Math.random() * image.length)];
+    } //Если массив с зомби и сержантом, то выбрать одного случайного
     let correctSound = demonData.sounds[Math.floor(Math.random() * demonData.sounds.length)];
     let incorrectSounds = [];
 
-    let demonListWithoutCorrectDemon = demonlist.filter(item => item.name != demonName);
+    let demonListWithoutCorrectDemon = demonlist.filter(item => item.name !== demonName);
 
-    console.group("Список без правильного");
-    console.log(demonListWithoutCorrectDemon);
-    console.groupEnd();
+    // console.group("Список без правильного");
+    // console.log(demonListWithoutCorrectDemon);
+    // console.groupEnd();
 
     while (incorrectSounds.length < numberOfVariants - 1) {
       let incorrectSound = getIncorrectSound(demonListWithoutCorrectDemon);
@@ -185,15 +177,18 @@ function generateQuestions (demonNames) {
     sounds.push(...incorrectSounds);
     sounds.splice(correctSoundIndex - 1, 0, correctSound);
 
-    console.group("Неправильные звуки");
-    console.log(incorrectSounds);
-    console.groupEnd();
+    // console.group("Неправильные звуки");
+    // console.log(incorrectSounds);
+    // console.groupEnd();
 
-    console.group("Объект правильного демона");
-    console.log(demonData);
-    console.groupEnd();
+    // console.group("Объект правильного демона");
+    // console.log(demonData);
+    // console.groupEnd();
+    image = filesPrefix + image;
 
-    questionList.push({ image: image, sounds: sounds, correctSoundIndex: correctSoundIndex});
+    sounds = sounds.map(sound => sound = filesPrefix + sound);
+
+    questionList.push({ image, sounds, correctSoundIndex });
   }
 
   console.group("questionList");
@@ -212,13 +207,12 @@ function getIncorrectSound (demonListWithoutCorrectDemon) {
   return randomIncorrectSound;
 }
 
-let demonNames = demonlist.map(item => item.name);
+// let randomQuestions = [];
+// randomQuestions = generateQuestions(randomDemonNames);
 
-let randomDemonNames = arrayRandElement(demonNames)
-
-console.log(randomDemonNames);
-
-generateQuestions(randomDemonNames)
+// console.group("randomQuestions");
+// console.log(randomQuestions)
+// console.groupEnd();
 
 // This function below is a test button for future
 

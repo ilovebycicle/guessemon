@@ -16,7 +16,7 @@ function Quiz(props) {
   // play1-2-3 объединить как-то
 
   const [play1] = useSound(
-    sounds[0],
+    require(`${props.sounds[0]}`),
     {
       volume: generalVolume,
       interrupt: true,
@@ -25,7 +25,7 @@ function Quiz(props) {
   );
 
   const [play2] = useSound(
-    sounds[1],
+    require(`${props.sounds[1]}`),
     {
       volume: generalVolume,
       playbackRate: (sounds[1].includes('dssgtatk') ? 0.8 + hurlAcceleration : 1), // Здесь код пасхалки, если звук хухурл то он ускоряется
@@ -35,7 +35,7 @@ function Quiz(props) {
   );
 
   const [play3] = useSound(
-    sounds[2],
+    require(`${props.sounds[2]}`),
     {
       volume: generalVolume,
       interrupt: true,
@@ -96,11 +96,15 @@ function Quiz(props) {
     setHurlAcceleration(0);
   }
 
+console.group("Картинки")
+console.log(props.image)
+console.groupEnd()
+
   return (
     <div className="Quiz-foundation">
       <div className='Sprite-box'>
         <img
-          src={props.image} style={{ backgroundSize: 'cover', height: '100%' }}>
+          src={require(`${props.image}`)} style={{ backgroundSize: 'cover', height: '100%' }}>
         </img>
       </div>
       <div className="Button-panel">
