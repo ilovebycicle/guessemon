@@ -1,47 +1,15 @@
 import React, { useState } from 'react';
 import './App.css';
-import useSound from 'use-sound';
+import AnswerButton from './AnswerButton';
 
 function Quiz(props) {
 
   const [selectedButton, setSelectedButton] = useState(0);
   const [isAnswered, setIsAnswered] = useState(false);
   const [isDisabledButtons, setIsDisabledButtons] = useState(false);
-  const [hurlAcceleration, setHurlAcceleration] = useState(0);
 
-  const { correctAnswer, sounds } = props; // const correctAnswer = props.correctAnswer; sounds = props.sounds;
-  const generalVolume = 0.25;
+  const {correctAnswer} = props; // const correctAnswer = props.correctAnswer
   const delayBetweenQuestionsMs = 1500;
-
-  // play1-2-3 объединить как-то
-
-  const [play1] = useSound(
-    require(`${props.sounds[0]}`),
-    {
-      volume: generalVolume,
-      interrupt: true,
-      onend: () => setIsDisabledButtons(false)
-    }
-  );
-
-  const [play2] = useSound(
-    require(`${props.sounds[1]}`),
-    {
-      volume: generalVolume,
-      playbackRate: (sounds[1].includes('dssgtatk') ? 0.8 + hurlAcceleration : 1), // Здесь код пасхалки, если звук хухурл то он ускоряется
-      interrupt: true,
-      onend: () => setIsDisabledButtons(false)
-    }
-  );
-
-  const [play3] = useSound(
-    require(`${props.sounds[2]}`),
-    {
-      volume: generalVolume,
-      interrupt: true,
-      onend: () => setIsDisabledButtons(false)
-    }
-  );
 
   const optionButtonClassName = (optionButtonNumber) => {
     if (optionButtonNumber === selectedButton) {
@@ -61,28 +29,6 @@ function Quiz(props) {
     )
   }
 
-  const buttonHandling = (number) => {
-    let soundToPlay = null;
-    switch (number) {
-      case 1:
-        soundToPlay = play1;
-        break;
-      case 2:
-        soundToPlay = play2;
-        break;
-      case 3:
-        soundToPlay = play3;
-        break;
-    }
-    // пасхалка для хухурл acceleration
-    soundToPlay === play2 && sounds[1].includes('dssgtatk') &&
-      setHurlAcceleration(hurlAcceleration + 0.1);
-
-    setSelectedButton(number);
-    setIsDisabledButtons(true);
-    soundToPlay();
-  }
-
   const continueHandling = () => {
     if (correctAnswer === selectedButton) {
       props.toggleScore();
@@ -93,7 +39,6 @@ function Quiz(props) {
       props.nextQuestion();
       setSelectedButton(0);
     }, delayBetweenQuestionsMs);
-    setHurlAcceleration(0);
   }
 
 console.group("Картинки")
@@ -109,13 +54,14 @@ console.groupEnd()
       </div>
       <div className="Button-panel">
         {props.sounds.map( (elem,index) =>
-          <button
-          className={optionButtonClassName(index+1)}
-          onClick={() => buttonHandling(index+1)}
-          disabled={isAnswered || isDisabledButtons}
-        >
-          Sound {index + 1}
-        </button>
+          <AnswerButton
+          sound = {elem}
+          index = {index}
+          className = {optionButtonClassName(index+1)}
+          isDisabled = {isAnswered || isDisabledButtons}
+          disableButtonsHandler = {setIsDisabledButtons}
+          selectedButtonHandler = {setSelectedButton}
+          />
         )}
       </div>
       <div className="Button-panel">
