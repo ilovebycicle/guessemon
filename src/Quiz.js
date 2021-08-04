@@ -108,27 +108,15 @@ console.groupEnd()
         </img>
       </div>
       <div className="Button-panel">
-        <button
-          className={optionButtonClassName(1)}
-          onClick={() => buttonHandling(1)}
+        {props.sounds.map( (elem,index) =>
+          <button
+          className={optionButtonClassName(index+1)}
+          onClick={() => buttonHandling(index+1)}
           disabled={isAnswered || isDisabledButtons}
         >
-          Sound №1
+          Sound {index + 1}
         </button>
-        <button
-          className={optionButtonClassName(2)}
-          onClick={() => buttonHandling(2)}
-          disabled={isAnswered || isDisabledButtons}
-        >
-          Sound №2
-        </button>
-        <button
-          className={optionButtonClassName(3)}
-          onClick={() => buttonHandling(3)}
-          disabled={isAnswered || isDisabledButtons}
-        >
-          Sound №3
-        </button>
+        )}
       </div>
       <div className="Button-panel">
         <button
