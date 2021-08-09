@@ -55,9 +55,10 @@ console.groupEnd()
       <div className="Button-panel">
         {props.sounds.map( (elem,index) =>
           <AnswerButton
+          key = {index}
           sound = {elem}
           index = {index}
-          className = {optionButtonClassName(index+1)}
+          className = {optionButtonClassName(index + 1)}
           isDisabled = {isAnswered || isDisabledButtons}
           disableButtonsHandler = {setIsDisabledButtons}
           selectedButtonHandler = {setSelectedButton}

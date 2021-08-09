@@ -7,7 +7,6 @@ import Results from './Results.js';
 
 import demonlist from './data/demonlist.json'
 
-const numberOfVariants = 3;
 const filesPrefix = "./data";
 
 const mockQuestions = [
@@ -42,15 +41,15 @@ function App() {
         break;
       case 1:
         randomDemonNames = arrayRandElement(FullListOfDemonNames, 5);
-        setQuestionList(generateQuestions(randomDemonNames));
+        setQuestionList(generateQuestions(randomDemonNames, 3));
         break;
       case 2:
         randomDemonNames = arrayRandElement(FullListOfDemonNames, 6);
-        setQuestionList(generateQuestions(randomDemonNames));
+        setQuestionList(generateQuestions(randomDemonNames, 4));
         break;
       case 3:
         randomDemonNames = arrayRandElement(FullListOfDemonNames, 8);
-        setQuestionList(generateQuestions(randomDemonNames));
+        setQuestionList(generateQuestions(randomDemonNames, 5));
         break;
     }
     setQuizState(1);
@@ -142,7 +141,7 @@ function arrayRandElement(arr,numberOfElements) {
   return fiveRandDemons;
 }
 
-function generateQuestions (demonNames) {
+function generateQuestions (demonNames, numberOfAnswers) {
 
   let questionList = [];
 
@@ -162,7 +161,7 @@ function generateQuestions (demonNames) {
     // console.log(demonListWithoutCorrectDemon);
     // console.groupEnd();
 
-    while (incorrectSounds.length < numberOfVariants - 1) {
+    while (incorrectSounds.length < numberOfAnswers - 1) {
       let incorrectSound = getIncorrectSound(demonListWithoutCorrectDemon);
 
       if (!incorrectSounds.includes(incorrectSound)) {
@@ -170,7 +169,7 @@ function generateQuestions (demonNames) {
       }
     }
 
-    let correctSoundIndex = (Math.floor(Math.random() * numberOfVariants) + 1);
+    let correctSoundIndex = (Math.floor(Math.random() * numberOfAnswers) + 1);
 
     let sounds = [];
 
