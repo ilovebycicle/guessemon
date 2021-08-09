@@ -217,7 +217,7 @@ function getIncorrectSound (demonListWithoutCorrectDemon) {
 
 function Alesha() {
   return (
-    <div>
+    <div style={{position: "absolute"}}>
       <button onClick={Test}>Ne trogai Aleshka!</button>
     </div>
   );

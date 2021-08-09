@@ -78,7 +78,8 @@
   font-size: 32px;
   margin: auto;  
   height: 500px;
-  width: 600px;
+  min-width: 600px;
+  max-width: 1000px;
 }
 
 .Sprite-box {
@@ -99,7 +100,7 @@
   display: inline-block;
   font-size: 20px;
   font-weight: bold;
-  margin: 4px 2px;
+  margin: 4px 10px;
   transition-duration: 0.4s;
 }
 
@@ -119,6 +120,7 @@
   display: flex;
   justify-content: space-around;
   padding: 10px 0;
+  margin: 0 10px;
 }
 
 .Right-answer {
