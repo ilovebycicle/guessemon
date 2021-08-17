@@ -114,7 +114,7 @@ function App() {
   return(
     <div className="App Background-logo">
       {currentStateComponent}
-      <Alesha />
+      <Test />
     </div>
   )
 }
@@ -215,12 +215,12 @@ function getIncorrectSound (demonListWithoutCorrectDemon) {
 
 // This function below is a test button for future
 
-function Alesha() {
-  return (
-    <div style={{position: "absolute"}}>
-      <button onClick={Test}>Ne trogai Aleshka!</button>
-    </div>
-  );
-}
+// function Alesha() {
+//   return (
+//     <div style={{position: "absolute"}}>
+//       <button onClick={Test}>Ne trogai Aleshka!</button>
+//     </div>
+//   );
+// }
 
 export default App;
