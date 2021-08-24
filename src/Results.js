@@ -5,7 +5,7 @@ function Results(props)
 {
   const [cacoSpin, setCacoSpin] = useState(false);
   return (
-      <header className="App-header">
+    <>
         <img
           src={logo}
           onMouseEnter={() => setCacoSpin(true)}
@@ -20,7 +20,7 @@ function Results(props)
           >
             Вернуться в прошлое?
           </button>
-      </header>
+    </>
   );
 }
 

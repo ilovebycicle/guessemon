@@ -4,6 +4,7 @@ import StartMenu from './StartMenu.js';
 import Quiz from './Quiz.js';
 import Test from './Test.js';
 import Results from './Results.js';
+import Volume from './Volume.js';
 
 import demonlist from './data/demonlist.json'
 
@@ -16,6 +17,93 @@ const mockQuestions = [
   { image: './data/spr/Cyberdemon_sprite.png', sounds: ['./data/snd/dscybsit.wav', './data/snd/dspodth1.wav', './data/snd/dspstop.wav'], correctSoundIndex: 1},
   { image: './data/spr/Lostsoul_sprite.png', sounds: ['./data/snd/dssawful.wav', './data/snd/dssklatk.wav', './data/snd/dsvipain.wav'], correctSoundIndex: 2},
 ]
+
+function arrayRandElement(arr,numberOfElements) {
+  let fiveRandDemons = [];
+
+  for ( let i = 0; i < numberOfElements; i++) {
+
+    let randIndex = Math.floor(Math.random() * arr.length);
+
+    if (!fiveRandDemons.includes(arr[randIndex])) {
+      fiveRandDemons.push(arr[randIndex]);
+    } else {
+      i--
+    }
+  }
+
+    // if (fiveRandDemons.includes(["Shotgun Guy", "Zombieman"])) {
+      // let indexOfZombies = fiveRandDemons.includes(["Shotgun Guy", "Zombieman"])
+      // console.log(indexOfZombies);
+    // }
+
+  return fiveRandDemons;
+}
+
+function generateQuestions (demonNames, numberOfAnswers) {
+
+  let questionList = [];
+
+  // Снизу в цикле for берётся каждый демон из уже зарандомленных, ищется его объект в json, и берём его картинку
+  for (let demonName of demonNames) {
+    let demonData = demonlist.find(item => item.name === demonName);
+    let image = demonData.calmSprite;
+    if (Array.isArray(image)) {
+      image = image[Math.floor(Math.random() * image.length)];
+    } //Если массив с зомби и сержантом, то выбрать одного случайного
+    let correctSound = demonData.sounds[Math.floor(Math.random() * demonData.sounds.length)];
+    let incorrectSounds = [];
+
+    let demonListWithoutCorrectDemon = demonlist.filter(item => item.name !== demonName);
+
+    // console.group("Список без правильного");
+    // console.log(demonListWithoutCorrectDemon);
+    // console.groupEnd();
+
+    while (incorrectSounds.length < numberOfAnswers - 1) {
+      let incorrectSound = getIncorrectSound(demonListWithoutCorrectDemon);
+
+      if (!incorrectSounds.includes(incorrectSound)) {
+        incorrectSounds.push(incorrectSound)
+      }
+    }
+
+    let correctSoundIndex = (Math.floor(Math.random() * numberOfAnswers) + 1);
+
+    let sounds = [];
+
+    sounds.push(...incorrectSounds);
+    sounds.splice(correctSoundIndex - 1, 0, correctSound);
+
+    // console.group("Неправильные звуки");
+    // console.log(incorrectSounds);
+    // console.groupEnd();
+
+    // console.group("Объект правильного демона");
+    // console.log(demonData);
+    // console.groupEnd();
+    image = filesPrefix + image;
+
+    sounds = sounds.map(sound => sound = filesPrefix + sound);
+
+    questionList.push({ image, sounds, correctSoundIndex });
+  }
+
+  console.group("questionList");
+  console.log(questionList);
+  console.groupEnd();
+
+  return questionList
+}
+
+function getIncorrectSound (demonListWithoutCorrectDemon) {
+
+  let randomIncorrectDemon = demonListWithoutCorrectDemon[Math.floor(Math.random() * demonListWithoutCorrectDemon.length)];
+
+  let randomIncorrectSound = randomIncorrectDemon.sounds[Math.floor(Math.random() * randomIncorrectDemon.sounds.length)];
+
+  return randomIncorrectSound;
+}
 
 function App() {
   // quizState - состояние викторины
@@ -110,117 +198,18 @@ function App() {
       break;
     default:
       currentStateComponent = null;
-    }
+  }
+
   return(
     <div className="App Background-logo">
-      {currentStateComponent}
+      <header className="App-header">
+        <Volume />
+        {currentStateComponent}
+      </header>
       <Test />
     </div>
   )
 }
 
-function arrayRandElement(arr,numberOfElements) {
-  let fiveRandDemons = [];
-
-  for ( let i = 0; i < numberOfElements; i++) {
-
-    let randIndex = Math.floor(Math.random() * arr.length);
-
-    if (!fiveRandDemons.includes(arr[randIndex])) {
-      fiveRandDemons.push(arr[randIndex]);
-    } else {
-      i--
-    }
-  }
-
-    // if (fiveRandDemons.includes(["Shotgun Guy", "Zombieman"])) {
-      // let indexOfZombies = fiveRandDemons.includes(["Shotgun Guy", "Zombieman"])
-      // console.log(indexOfZombies);
-    // }
-
-  return fiveRandDemons;
-}
-
-function generateQuestions (demonNames, numberOfAnswers) {
-
-  let questionList = [];
-
-  // Снизу в цикле for берётся каждый демон из уже зарандомленных, ищется его объект в json, и берём его картинку
-  for (let demonName of demonNames) {
-    let demonData = demonlist.find(item => item.name === demonName);
-    let image = demonData.calmSprite;
-    if (Array.isArray(image)) {
-      image = image[Math.floor(Math.random() * image.length)];
-    } //Если массив с зомби и сержантом, то выбрать одного случайного
-    let correctSound = demonData.sounds[Math.floor(Math.random() * demonData.sounds.length)];
-    let incorrectSounds = [];
-
-    let demonListWithoutCorrectDemon = demonlist.filter(item => item.name !== demonName);
-
-    // console.group("Список без правильного");
-    // console.log(demonListWithoutCorrectDemon);
-    // console.groupEnd();
-
-    while (incorrectSounds.length < numberOfAnswers - 1) {
-      let incorrectSound = getIncorrectSound(demonListWithoutCorrectDemon);
-
-      if (!incorrectSounds.includes(incorrectSound)) {
-        incorrectSounds.push(incorrectSound)
-      }
-    }
-
-    let correctSoundIndex = (Math.floor(Math.random() * numberOfAnswers) + 1);
-
-    let sounds = [];
-
-    sounds.push(...incorrectSounds);
-    sounds.splice(correctSoundIndex - 1, 0, correctSound);
-
-    // console.group("Неправильные звуки");
-    // console.log(incorrectSounds);
-    // console.groupEnd();
-
-    // console.group("Объект правильного демона");
-    // console.log(demonData);
-    // console.groupEnd();
-    image = filesPrefix + image;
-
-    sounds = sounds.map(sound => sound = filesPrefix + sound);
-
-    questionList.push({ image, sounds, correctSoundIndex });
-  }
-
-  console.group("questionList");
-  console.log(questionList);
-  console.groupEnd();
-
-  return questionList
-}
-
-function getIncorrectSound (demonListWithoutCorrectDemon) {
-
-  let randomIncorrectDemon = demonListWithoutCorrectDemon[Math.floor(Math.random() * demonListWithoutCorrectDemon.length)];
-
-  let randomIncorrectSound = randomIncorrectDemon.sounds[Math.floor(Math.random() * randomIncorrectDemon.sounds.length)];
-
-  return randomIncorrectSound;
-}
-
-// let randomQuestions = [];
-// randomQuestions = generateQuestions(randomDemonNames);
-
-// console.group("randomQuestions");
-// console.log(randomQuestions)
-// console.groupEnd();
-
-// This function below is a test button for future
-
-// function Alesha() {
-//   return (
-//     <div style={{position: "absolute"}}>
-//       <button onClick={Test}>Ne trogai Aleshka!</button>
-//     </div>
-//   );
-// }
 
 export default App;

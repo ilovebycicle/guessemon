@@ -5,7 +5,7 @@ function StartMenu(props)
 {
   const [cacoSpin, setCacoSpin] = useState(false);
   return (
-      <header className="App-header">
+      <>
         <img
           // src={logo}
           src={require('./logo.png')}
@@ -43,7 +43,7 @@ function StartMenu(props)
             >
               Ultra-violence!
             </button>
-      </header>
+      </>
   );
 }
 
