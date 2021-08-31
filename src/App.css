@@ -44,9 +44,11 @@
   display: flex;
 }
 
-.Main-text {
-    text-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
+@import url('http://fonts.cdnfonts.com/css/doom');
 
+.Main-text {
+  font-family: 'DooM', sans-serif;
+  text-shadow: 2px 0 0 #fff, -2px 0 0 #fff, 0 2px 0 #fff, 0 -2px 0 #fff, 1px 1px #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff;
   color: rgb(255, 0, 0);
 }
 
