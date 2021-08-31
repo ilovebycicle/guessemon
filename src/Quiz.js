@@ -62,6 +62,7 @@ console.groupEnd()
           isDisabled = {isAnswered || isDisabledButtons}
           disableButtonsHandler = {setIsDisabledButtons}
           selectedButtonHandler = {setSelectedButton}
+          generalVolume = {props.generalVolume}
           />
         )}
       </div>

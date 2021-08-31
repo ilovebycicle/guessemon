@@ -1,12 +1,12 @@
 import useSound from 'use-sound';
 import React, { useState } from 'react';
 
-function Test() {
+function Test(props) {
 
   const [musicToPlay] = useSound(
     require("./data/mus/Doot - E1M1 [Knee-Deep in the Doot].mp3"),
     {
-      volume: 0.25,
+      volume: props.generalVolume,
       interrupt: true,
     }
   );

@@ -5,12 +5,12 @@ import useSound from 'use-sound';
 function AnswerButton(props) {
 
   const [hurlAcceleration, setHurlAcceleration] = useState(0);
-  const generalVolume = 0.25;
+  // const generalVolume = 0.25;
 
   const [soundToPlay] = useSound(
     require(`${props.sound}`),
     {
-      volume: generalVolume,
+      volume: props.generalVolume,
       interrupt: true,
       playbackRate: (props.sound.includes('dssgtatk') ? 0.8 + hurlAcceleration : 1), // Здесь код пасхалки, если звук хухурл то он ускоряется
       onend: () => props.disableButtonsHandler(false)

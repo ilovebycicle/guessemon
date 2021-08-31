@@ -128,8 +128,8 @@
 .Volume-box {
   background-color: white; 
   color: black;
-  border: 3px solid rgba(0, 0, 0, 0);
-  padding: 16px 32px;
+  border: 5px solid rgba(0, 0, 0, 0);
+  padding: 4px 12px 4px 12px;
   text-align: left;
   display: inline-block;
   font-size: 20px;
@@ -137,6 +137,11 @@
   margin: 4px 10px;
   transition-duration: 0.4s;
   align-self: flex-end;
+}
+
+.Volume-value {
+  display:inline-block;
+  width: 20px;
 }
 
 

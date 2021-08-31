@@ -114,6 +114,7 @@ function App() {
   const [questionCount, setQuestionCount] = useState(0);
   const [score, setScore] = useState(0);
   const [questionList, setQuestionList] = useState([]);
+  const [generalVolume, setGeneralVolume] = useState(0.25);
 
   // const [difficulty, setDifficulty] = useState(0); 
   // Использовние этого стейта необходимо
@@ -186,6 +187,7 @@ function App() {
             correctAnswer={questionList[questionCount].correctSoundIndex}
             nextQuestion={nextQuestionHandling}
             toggleScore={scoreHandling}
+            generalVolume={generalVolume}
             // {...console.log(hardDifficulty)} //трэк стэйта
           />
       break;
@@ -203,10 +205,15 @@ function App() {
   return(
     <div className="App Background-logo">
       <header className="App-header">
-        <Volume />
+        <Volume
+          setGeneralVolume={setGeneralVolume}
+          generalVolume={generalVolume}
+        />
         {currentStateComponent}
       </header>
-      <Test />
+      <Test
+        generalVolume={generalVolume}
+      />
     </div>
   )
 }
