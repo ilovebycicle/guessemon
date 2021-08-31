@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import StartMenu from './StartMenu.js';
 import Quiz from './Quiz.js';
-import Test from './Test.js';
+import Doot from './Doot.jsx';
 import Results from './Results.js';
 import Volume from './Volume.js';
 
@@ -214,7 +214,7 @@ function App() {
         />
         {currentStateComponent}
       </header>
-      <Test
+      <Doot
         generalVolume={generalVolume}
       />
     </div>
