@@ -49,7 +49,10 @@ console.groupEnd()
     <div className="Quiz-foundation">
       <div className='Sprite-box'>
         <img
-          src={require(`${props.image}`)} style={{ backgroundSize: 'cover', height: '100%' }}>
+          src={require(`${props.image}`)}
+          style={{ backgroundSize: 'cover', height: '100%' }}
+          alt='img not found'
+        >
         </img>
       </div>
       <div className="Button-panel">

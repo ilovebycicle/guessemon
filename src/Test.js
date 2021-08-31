@@ -1,5 +1,5 @@
 import useSound from 'use-sound';
-import React, { useState } from 'react';
+import React from 'react';
 
 function Test(props) {
 

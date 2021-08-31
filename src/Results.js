@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import logo from './logo.png';
+import logo from './data/img/logo.png';
 
 function Results(props) 
 {

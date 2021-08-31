@@ -35,7 +35,7 @@
 
 .Background-logo {
   background-color: darkred;
-  background-image: url('./Background.jpg');
+  background-image: url('./data/img/Background.jpg');
   background-attachment: fixed;
   background-size: cover;
   width: 100%;
@@ -143,7 +143,6 @@
   display:inline-block;
   width: 20px;
 }
-
 
 @keyframes App-logo-spin {
   from {

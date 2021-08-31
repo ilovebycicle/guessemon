@@ -5,7 +5,6 @@ import useSound from 'use-sound';
 function AnswerButton(props) {
 
   const [hurlAcceleration, setHurlAcceleration] = useState(0);
-  // const generalVolume = 0.25;
 
   const [soundToPlay] = useSound(
     require(`${props.sound}`),

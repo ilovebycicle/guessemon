@@ -140,6 +140,9 @@ function App() {
         randomDemonNames = arrayRandElement(FullListOfDemonNames, 8);
         setQuestionList(generateQuestions(randomDemonNames, 5));
         break;
+      default:
+        setQuestionList(mockQuestions)
+        break;
     }
     setQuizState(1);
   }

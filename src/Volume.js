@@ -1,5 +1,4 @@
-import useSound from 'use-sound';
-import React, { useState } from 'react';
+import React from 'react';
 import {RangeStepInput} from 'react-range-step-input';
 
 
