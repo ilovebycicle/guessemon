@@ -32,11 +32,6 @@ function arrayRandElement(arr,numberOfElements) {
     }
   }
 
-    // if (fiveRandDemons.includes(["Shotgun Guy", "Zombieman"])) {
-      // let indexOfZombies = fiveRandDemons.includes(["Shotgun Guy", "Zombieman"])
-      // console.log(indexOfZombies);
-    // }
-
   return fiveRandDemons;
 }
 
@@ -56,10 +51,6 @@ function generateQuestions (demonNames, numberOfAnswers) {
 
     let demonListWithoutCorrectDemon = demonlist.filter(item => item.name !== demonName);
 
-    // console.group("Список без правильного");
-    // console.log(demonListWithoutCorrectDemon);
-    // console.groupEnd();
-
     while (incorrectSounds.length < numberOfAnswers - 1) {
       let incorrectSound = getIncorrectSound(demonListWithoutCorrectDemon);
 
@@ -75,23 +66,12 @@ function generateQuestions (demonNames, numberOfAnswers) {
     sounds.push(...incorrectSounds);
     sounds.splice(correctSoundIndex - 1, 0, correctSound);
 
-    // console.group("Неправильные звуки");
-    // console.log(incorrectSounds);
-    // console.groupEnd();
-
-    // console.group("Объект правильного демона");
-    // console.log(demonData);
-    // console.groupEnd();
     image = filesPrefix + image;
 
     sounds = sounds.map(sound => sound = filesPrefix + sound);
 
     questionList.push({ image, sounds, correctSoundIndex });
   }
-
-  console.group("questionList");
-  console.log(questionList);
-  console.groupEnd();
 
   return questionList
 }
@@ -115,10 +95,6 @@ function App() {
   const [score, setScore] = useState(0);
   const [questionList, setQuestionList] = useState([]);
   const [generalVolume, setGeneralVolume] = useState(0.25);
-
-  // const [difficulty, setDifficulty] = useState(0); 
-  // Использовние этого стейта необходимо
-  // только если будет больше выборов сложностей
 
   const setQuestionListBasedOnDifficulty = (difficulty) => {
     const FullListOfDemonNames = demonlist.map(item => item.name);
@@ -177,8 +153,6 @@ function App() {
     case 0: // рисуем стартовое меню
       currentStateComponent =
         <StartMenu
-          // setButtonStartQuiz={setQuizState}
-          // setDifficulty={setDifficulty}
           setQuestionListBasedOnDifficulty={setQuestionListBasedOnDifficulty}
         />
       break;
@@ -191,7 +165,6 @@ function App() {
             nextQuestion={nextQuestionHandling}
             toggleScore={scoreHandling}
             generalVolume={generalVolume}
-            // {...console.log(hardDifficulty)} //трэк стэйта
           />
       break;
     case 2: // рисуем результаты
